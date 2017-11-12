@@ -36,6 +36,7 @@ var accionDisminuir = {
 }
 
 //Funcionamiento:
+
 //Disparamos la acción ( por ejemplo store.dispatch(accionAumentar) ), llamando a un metodo del store.
 //Esto hará que el store llame al reductor pasandole la acción (y el estado actual). 
 //El reductor comprobará el type de esa acción y devolverá otro nuevo estado (según el type de la acción pasada).
@@ -46,4 +47,15 @@ var aumentar = function(){
 var disminuir = function(){
     store.dispatch(accionDisminuir);
 }
+
+//Renderizar el valor del estado modificado:
+
+var divNumero = document.getElementById("numero");
+var mostrarCantidad = function(){
+    divNumero.innerHTML = store.getState().cantidad; // Es la forma de recuperar el estado del store.
+}
+
+//suscribimos:
+store.subscribe(mostrarCantidad);
+
 
