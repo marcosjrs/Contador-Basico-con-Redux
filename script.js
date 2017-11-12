@@ -10,16 +10,15 @@ function reductor(estadoActual, accion){
     switch (accion.type) {
         case "AUMENTAR":
             nuevoEstado.cantidad = estadoActual.cantidad + 1;
-            break;
+            return nuevoEstado;
         case "DISMINUIR":
             nuevoEstado.cantidad = estadoActual.cantidad - 1;
-            break;
+            return nuevoEstado;
         default:
             break;
     }
 
-    console.log(nuevoEstado,accion);
-    return nuevoEstado;
+    return estadoActual;
 }
 
 //Store. Através del store se despacharán acciones. ("dispatcharán" eventos :D )
