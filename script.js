@@ -3,20 +3,37 @@ var estado = {
     cantidad: 0
 };
 
-//Reducer
-function reductor(estado, accion){
+//Reducer. Se le pasa una accion (objeto con propiedad type) y un estado. Según el type de la acción se genera otro estado nuevo que será lo que devuelva.
+function reductor(estadoActual, accion){
+    switch (accion.type) {
+        case "AUMENTAR":
+            estadoActual = {cantidad:estadoActual.cantidad + 1 };
+            break;
+   
+        default:
+            break;
+    }
+    console.log(estadoActual,accion);
+    return estadoActual;
 }
 
 //Store. Através del store se despacharán acciones. ("dispatcharán" eventos :D )
+//Y será el Modelo de la aplicación. Inicialmente llamará al reductor con un acción con type: "@@redux/INIT".
 var store = Redux.createStore(reductor, estado);
 
 //Action
 var accionAumentar = {
-    type:"aumentar"
+    type:"AUMENTAR"
 }
 
 var accionDisminuir = {
-    type:"disminuir"
+    type:"DISMINUIR"
 }
+
+//Funcionamiento:
+//Disparamos la acción, llamando a un metodo del store.
+//Esto hará que el store llame al reductor pasandole la acción (y el estado actual). 
+//El reductor comprobará el type de esa acción y devolverá otro nuevo estado (según el type de la acción pasada).
+store.dispatch(accionAumentar);
 
 
