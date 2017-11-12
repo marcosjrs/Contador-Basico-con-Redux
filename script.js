@@ -5,16 +5,21 @@ var estado = {
 
 //Reducer. Se le pasa una accion (objeto con propiedad type) y un estado. Según el type de la acción se genera otro estado nuevo que será lo que devuelva.
 function reductor(estadoActual, accion){
+    var nuevoEstado = Object.assign({},estadoActual); //clonamos el objeto
+
     switch (accion.type) {
         case "AUMENTAR":
-            estadoActual = {cantidad:estadoActual.cantidad + 1 };
+            nuevoEstado.cantidad = estadoActual.cantidad + 1;
             break;
-   
+        case "DISMINUIR":
+            nuevoEstado.cantidad = estadoActual.cantidad - 1;
+            break;
         default:
             break;
     }
-    console.log(estadoActual,accion);
-    return estadoActual;
+
+    console.log(nuevoEstado,accion);
+    return nuevoEstado;
 }
 
 //Store. Através del store se despacharán acciones. ("dispatcharán" eventos :D )
@@ -31,9 +36,14 @@ var accionDisminuir = {
 }
 
 //Funcionamiento:
-//Disparamos la acción, llamando a un metodo del store.
+//Disparamos la acción ( por ejemplo store.dispatch(accionAumentar) ), llamando a un metodo del store.
 //Esto hará que el store llame al reductor pasandole la acción (y el estado actual). 
 //El reductor comprobará el type de esa acción y devolverá otro nuevo estado (según el type de la acción pasada).
-store.dispatch(accionAumentar);
 
+var aumentar = function(){
+    store.dispatch(accionAumentar);
+}
+var disminuir = function(){
+    store.dispatch(accionDisminuir);
+}
 
